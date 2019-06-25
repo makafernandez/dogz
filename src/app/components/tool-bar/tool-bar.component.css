@@ -1,0 +1,13 @@
+.toolbar {
+	position: absolute;
+	top: 0;
+	height: 100vh;
+}
+
+mat-sidenav {
+  width: 50vw;
+}
+
+.container {
+	padding: 20px;
+}

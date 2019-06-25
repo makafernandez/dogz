@@ -1,17 +1,22 @@
-<mat-sidenav-container class="example-container">
-	<mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')"
-		(closed)="events.push('close!')">
-		Sidenav content
-	</mat-sidenav>
+<div class="toolbar">
+  <mat-sidenav-container>
+    <mat-sidenav
+	  #sidenav
+	  class="container"
+      mode="push"
+	  [(opened)]="opened"
+	  (click)="close()"
+	  (backdropClick)="close()"
+	  (keydown.escape)="close()"
+	  [fixedInViewport]="options.value.fixed"
+    >
+      <app-tools></app-tools>
+    </mat-sidenav>
 
-	<mat-sidenav-content>
-		<p>
-			<mat-checkbox [(ngModel)]="opened">sidenav.opened</mat-checkbox>
-		</p>
-		<p><button mat-button (click)="sidenav.toggle()">sidenav.toggle()</button></p>
-		<p>Events:</p>
-		<div class="example-events">
-			<div *ngFor="let e of events">{{e}}</div>
-		</div>
-	</mat-sidenav-content>
-</mat-sidenav-container>
+    <mat-sidenav-content>
+      <p>
+        <button mat-button (click)="sidenav.toggle()">sidenav.toggle()</button>
+      </p>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
