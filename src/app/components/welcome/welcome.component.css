@@ -1,0 +1,36 @@
+.welcome {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-image: url('./../../../assets/background.jpg');
+	background-size: fill;
+	background-repeat: repeat;	
+	height: 25rem;
+	text-align: center;
+}
+
+.welcome-title {
+	padding: 2rem;
+	margin: 1rem auto;
+	color: #596d81;
+}
+
+.welcome-title h2 {
+	font-weight: bold;
+}
+
+.welcome-subtitle {
+	color: #596d81;
+	font-size: 1.2rem;
+}
+
+.welcome-btn {
+	background-color: #FEA5A7 !important;
+	color: #fff !important;
+}
+
+/*@media only screen and (max-width: 560px) {
+	.welcomeBar {
+		background-image: url('./background_search_mobile.jpg');
+	}
+}*/
