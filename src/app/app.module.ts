@@ -20,6 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { ToolBarComponent } from './components/tool-bar/tool-bar.component';
 import { ToolsComponent } from './components/tools/tools.component';
+import { DisplayResultsComponent } from './components/display-results/display-results.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ToolsComponent } from './components/tools/tools.component';
     AppComponent,
     WelcomeComponent,
     ToolBarComponent,
-    ToolsComponent
+    ToolsComponent,
+    DisplayResultsComponent
   ],
   imports: [
     BrowserModule,
