@@ -15,12 +15,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
 
 // Components
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { ToolBarComponent } from './components/tool-bar/tool-bar.component';
 import { ToolsComponent } from './components/tools/tools.component';
 import { DisplayResultsComponent } from './components/display-results/display-results.component';
+import { ResultsItemComponent } from './components/results-item/results-item.component';
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import { DisplayResultsComponent } from './components/display-results/display-re
     WelcomeComponent,
     ToolBarComponent,
     ToolsComponent,
-    DisplayResultsComponent
+    DisplayResultsComponent,
+    ResultsItemComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import { DisplayResultsComponent } from './components/display-results/display-re
     ReactiveFormsModule,
     MatExpansionModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent],

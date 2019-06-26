@@ -1,1 +1,5 @@
-<p>display-results works!</p>
+<div class="display-results container">
+   <div class="card-columns">
+      <app-results-item *ngFor="let img of imgList" [img]="img" [breed]="breed"></app-results-item>
+   </div>
+</div>
