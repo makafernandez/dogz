@@ -1,4 +1,6 @@
-<mat-toolbar class="header"><span>{{title}}</span></mat-toolbar>
+<mat-toolbar class="header"
+  ><span>{{ title }}</span></mat-toolbar
+>
 <app-welcome></app-welcome>
-<app-tool-bar></app-tool-bar>
+<app-tool-bar (eventClicked)="childEventClicked($event)"></app-tool-bar>
 <app-display-results></app-display-results>

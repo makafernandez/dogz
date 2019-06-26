@@ -10,7 +10,7 @@
         </button>
       </div>
       <!-- Options -->
-      <app-tools></app-tools>
+      <app-tools (eventClicked)="childEventClicked($event)"></app-tools>
     </mat-sidenav>
 
     <mat-sidenav-content>

@@ -13,21 +13,21 @@
       <div class="tools--checkboxCol">
         <ng-container *ngFor='let breed of breedsList; let i=index;'>
           <ng-container *ngIf="i <= 29">
-            <mat-checkbox>{{breed.name | titlecase}}</mat-checkbox>
+            <mat-checkbox (click)="onClick(event)">{{breed.name | titlecase}}</mat-checkbox>
           </ng-container>
         </ng-container>
       </div>
       <div class="tools--checkboxCol">
         <ng-container *ngFor='let breed of breedsList; let i=index;'>
           <ng-container *ngIf="i >= 30 && i <= 59">
-            <mat-checkbox>{{breed.name | titlecase}}</mat-checkbox>
+            <mat-checkbox (click)="onClick(event)">{{breed.name | titlecase}}</mat-checkbox>
           </ng-container>
         </ng-container>
       </div>
       <div class="tools--checkboxCol">
         <ng-container *ngFor='let breed of breedsList; let i=index;'>
           <ng-container *ngIf="i >= 60 && i <= 99">
-            <mat-checkbox>{{breed.name | titlecase}}</mat-checkbox>
+            <mat-checkbox (click)="onClick(event)">{{breed.name | titlecase}}</mat-checkbox>
           </ng-container>
         </ng-container>
       </div>

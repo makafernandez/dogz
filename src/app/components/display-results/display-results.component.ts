@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { DogsService } from 'src/app/services/dogs.service';
+import { Component, OnInit, Optional, Input } from '@angular/core';
+import { SharedService } from 'src/app/services/sharedService/shared.service';
+import { WelcomeComponent } from '../welcome/welcome.component';
+import { ToolBarComponent } from '../tool-bar/tool-bar.component';
 
 @Component({
   selector: 'app-display-results',
@@ -7,20 +9,12 @@ import { DogsService } from 'src/app/services/dogs.service';
   styleUrls: ['./display-results.component.css']
 })
 export class DisplayResultsComponent implements OnInit {
-  imgList = [];
+  //@Input() imgList = ToolBarComponent;
+  imgList: Array<string> = [];
 
-
-  constructor(private dogsService: DogsService ) {}
+  constructor(private shared: SharedService) {}
 
   ngOnInit() {
-    this.searchByBreed('hound');
-    console.log(this.imgList);
-  }
-
-  searchByBreed(breed) {
-    this.dogsService.searchBreed(breed)
-      .subscribe((data: []) => this.imgList = [
-          data
-      ]);
+    this.shared.currentImageResults.subscribe(imgList => this.imgList = imgList);
   }
 }
