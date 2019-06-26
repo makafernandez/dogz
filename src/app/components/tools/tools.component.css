@@ -1,0 +1,10 @@
+.tools--breedsCheck {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+.tools--checkboxCol {
+	display: flex;
+	flex-direction: column;
+}

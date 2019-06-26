@@ -11,3 +11,16 @@ mat-sidenav {
 .container {
 	padding: 20px;
 }
+
+.toolbar--header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: baseline;
+	color: #8a8a8a;
+}
+
+.toolbar--header p {
+	font-size: 1.2rem;
+	margin-top: 0;
+}

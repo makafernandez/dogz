@@ -5,30 +5,73 @@
         Razas
       </mat-panel-title>
       <mat-panel-description>
-        Elige 1 raza mínimo
+        Has seleccionado 5 filtros
       </mat-panel-description>
     </mat-expansion-panel-header>
-
-    <mat-form-field *ngFor="let breed of breedsList;">
-        <mat-checkbox>{{breed}}</mat-checkbox>
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput placeholder="Age" />
-    </mat-form-field>
+    <!-- Checkbox Raza -->
+    <div class="tools--breedsCheck">
+      <div class="tools--checkboxCol">
+        <ng-container *ngFor='let breed of breedsList; let i=index;'>
+          <ng-container *ngIf="i <= 29">
+            <mat-checkbox>{{breed.name | titlecase}}</mat-checkbox>
+          </ng-container>
+        </ng-container>
+      </div>
+      <div class="tools--checkboxCol">
+        <ng-container *ngFor='let breed of breedsList; let i=index;'>
+          <ng-container *ngIf="i >= 30 && i <= 59">
+            <mat-checkbox>{{breed.name | titlecase}}</mat-checkbox>
+          </ng-container>
+        </ng-container>
+      </div>
+      <div class="tools--checkboxCol">
+        <ng-container *ngFor='let breed of breedsList; let i=index;'>
+          <ng-container *ngIf="i >= 60 && i <= 99">
+            <mat-checkbox>{{breed.name | titlecase}}</mat-checkbox>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
   </mat-expansion-panel>
-  <mat-expansion-panel
-    (opened)="panelOpenState = true"
-    (closed)="panelOpenState = false"
-  >
+  <!-- Checkbox Sub-Raza -->
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Self aware panel
+        Sub-Raza
       </mat-panel-title>
       <mat-panel-description>
-        Currently I am {{ panelOpenState ? 'open' : 'closed' }}
+        Has seleccionado 2 filtros
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <p>I'm visible because I am open</p>
+    <!-- Checkbox Raza -->
+    <div class="tools--breedsCheck">
+      <div class="tools--checkboxCol">
+          <mat-checkbox>Afghan</mat-checkbox>
+          <mat-checkbox>Basset</mat-checkbox>
+          <mat-checkbox>Beagle</mat-checkbox>
+        <!--<ng-container *ngIf='no hay elemntos disponibles'>
+
+          </ng-container>-->
+        <!--<ng-container *ngFor='let sub of subBreedsList; let i=index;'>
+            <ng-container *ngIf="i <= 29">
+              <mat-checkbox>{{sub.name | titlecase}}</mat-checkbox>
+            </ng-container>
+          </ng-container>
+        </div>
+        <div class="tools--checkboxCol">
+          <ng-container *ngFor='let sub of subBreedsList; let i=index;'>
+            <ng-container *ngIf="i >= 30 && i <= 59">
+              <mat-checkbox>{{sub.name | titlecase}}</mat-checkbox>
+            </ng-container>
+          </ng-container>
+        </div>
+        <div class="tools--checkboxCol">
+          <ng-container *ngFor='let sub of subBreedsList; let i=index;'>
+            <ng-container *ngIf="i >= 60 && i <= 99">
+              <mat-checkbox>{{sub.name | titlecase}}</mat-checkbox>
+            </ng-container>
+          </ng-container>-->
+      </div>
+    </div>
   </mat-expansion-panel>
 </mat-accordion>
