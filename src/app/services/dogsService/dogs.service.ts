@@ -3,6 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 
+/**
+ * @description Sends requests to the Dog API and returns the responses to the front.
+ * @author makafernandez
+ * @date 2019-06-27
+ * @export
+ */
 @Injectable({
   providedIn: 'root'
 })

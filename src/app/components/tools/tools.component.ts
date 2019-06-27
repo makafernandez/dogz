@@ -26,6 +26,12 @@ export class ToolsComponent implements OnInit {
     this.loadBreedList();
   }
 
+  /**
+   *
+   *
+   * @date 2019-06-27
+   * @memberof ToolsComponent
+   */
   loadBreedList() {
     this.dogsService
       .getBreedsList()
@@ -40,22 +46,47 @@ export class ToolsComponent implements OnInit {
       });
   }
 
+  /**
+   *
+   * @date 2019-06-27
+   * @param {string} breed
+   * @param {number} num
+   * @memberof ToolsComponent
+   */
   searchByBreed(breed: string, num: number) {
     this.loading = true;
     this.dogsService.searchBreed(breed, num).subscribe(response => {
       this.imgList = response.message;
       this.loading = false;
+      this.addSharedImgList(this.imgList);
     });
-    this.addSharedImgList(this.imgList);
   }
 
-  onChange(event: Event, breed) {
+  /**
+   * @description Captura los click 
+   * @author makafernandez
+   * @date 2019-06-27
+   * @param {*} event
+   * @param {*} breed
+   * @memberof ToolsComponent
+   */
+  onChange(event: any, breed: any) {
     this.eventClicked.emit(event);
-    this.searchByBreed(breed, 10);
+    if (event.checked) {
+      this.searchByBreed(breed, 10);
+    } else {
+      console.log('deselecciona');
+      for (breed in this.imgList) {
+        
+      }
+      let index = this.imgList.indexOf(breed);
+      console.log(index);
+      
+    }
   }
 
   addSharedImgList(data) {
-    this.sharedService.insertImgList(data);
+    this.sharedService.setImageList(data);
     this.imgList = [];
   }
 }

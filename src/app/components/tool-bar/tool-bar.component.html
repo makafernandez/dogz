@@ -1,11 +1,18 @@
 <div class="toolbar">
   <mat-sidenav-container>
-    <mat-sidenav #sidenav class="container" mode="push" [(opened)]="opened" (backdropClick)="close()"
-      (keydown.escape)="close()" [fixedInViewport]="options.value.fixed">
-    <!-- Tool Bar Header -->
+    <mat-sidenav
+      #sidenav
+      class="container"
+      mode="push"
+      [(opened)]="opened"
+      (backdropClick)="close()"
+      (keydown.escape)="close()"
+      [fixedInViewport]="options.value.fixed"
+    >
+      <!-- Tool Bar Header -->
       <div class="toolbar--header">
         <p>Filtros</p>
-        <button mat-icon-button (click)="close()">
+        <button mat-icon-button (click)="sidenav.toggle()">
           <mat-icon>close</mat-icon>
         </button>
       </div>
@@ -14,9 +21,9 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-      <p>
-        <button mat-button (click)="sidenav.toggle()">sidenav.toggle()</button>
-      </p>
+      <button mat-raised-button color="accent" (click)="sidenav.toggle()">
+          filter-list
+      </button>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

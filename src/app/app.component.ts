@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'dogz';
 
-  public clickedEvent: Event;
+  // public clickedEvent: Event;
 
   /*childEventClicked(event: Event) {
     this.clickedEvent = event;

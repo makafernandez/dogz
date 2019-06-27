@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
-
 export class SharedService {
-  sharedImgList = [];
+  private images = new BehaviorSubject([]);
+  imageList = this.images.asObservable();
 
-  insertImgList(data: string[]) {
-    this.sharedImgList.unshift(data);
-    console.log('Data compartida');
-  }
-
-  getImgList() {
-    return this.sharedImgList;
+  setImageList(images) {
+    this.images.next(images);
+    console.log(this.imageList);
   }
 }
