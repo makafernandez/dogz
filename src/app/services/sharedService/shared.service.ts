@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable()
 
 export class SharedService {
-  dataArray: string[] = [];
+  sharedImgList = [];
 
-  insertData(data: string) {
-    this.dataArray.unshift(data);
+  insertImgList(data: string[]) {
+    this.sharedImgList.unshift(data);
+    console.log('Data compartida');
+  }
+
+  getImgList() {
+    return this.sharedImgList;
   }
 }

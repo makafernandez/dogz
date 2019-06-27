@@ -14,6 +14,6 @@ export class DisplayResultsComponent implements OnInit {
   constructor(private sharedService: SharedService) {}
 
   ngOnInit() {
-    this.imgList = this.sharedService.dataArray;
+    this.imgList = this.sharedService.sharedImgList;
   }
 }

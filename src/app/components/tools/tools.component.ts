@@ -1,67 +1,61 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { map, tap } from 'rxjs/operators';
-import { SharedService } from 'src/app/services/sharedService/shared.service';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DogsService } from 'src/app/services/dogsService/dogs.service';
+import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { SharedService } from 'src/app/services/sharedService/shared.service';
 
 @Component({
   selector: 'app-tools',
   templateUrl: './tools.component.html',
   styleUrls: ['./tools.component.css']
 })
-
 export class ToolsComponent implements OnInit {
   @Output() eventClicked = new EventEmitter<Event>();
   panelOpenState = false;
-  breeds = [];
+  breeds: any[] = [];
   subBreedsList = [];
-  imgList = [];
+  imgList: string[] = [];
   loading = false;
 
-  constructor(private sharedService: SharedService, private dogsService: DogsService) { }
+  constructor(
+    private sharedService: SharedService,
+    private dogsService: DogsService
+  ) {}
 
   ngOnInit() {
     this.loadBreedList();
   }
 
   loadBreedList() {
-    this.loading = true;
-    this.dogsService.getBreedsList().pipe(tap(() => this.loading = true))
-      .subscribe({
-        next(response) {
-          this.breeds = Object.keys(response.message);
-          this.loading = false;
-          console.log(this.breeds);
-        },
-        error(err) {
-          console.error('Error: ' + err);
-        }
-      }).tap(() => this.loading = false);
+    this.dogsService
+      .getBreedsList()
+      .pipe(
+        tap(() => {
+          this.loading = true;
+        })
+      )
+      .subscribe(response => {
+        this.breeds = Object.keys(response.message);
+        this.loading = false;
+      });
   }
 
   searchByBreed(breed: string, num: number) {
     this.loading = true;
-    this.dogsService.searchBreed(breed, num).subscribe({
-      next(response) {
-        this.imgList = response.message;
-        this.loading = false;
-      },
-      error(err) {
-        console.error('Error: ' + err);
-      },
-      complete() {
-        console.log('Completed');
-      }
+    this.dogsService.searchBreed(breed, num).subscribe(response => {
+      this.imgList = response.message;
+      this.loading = false;
     });
+    this.addSharedImgList(this.imgList);
   }
 
-  onChange(event: Event): void {
+  onChange(event: Event, breed) {
     this.eventClicked.emit(event);
-    this.searchByBreed(event.source.name, 10);
+    this.searchByBreed(breed, 10);
   }
 
-  addData() {
-    this.sharedService.insertData(this.data);
-    this.data = '';
+  addSharedImgList(data) {
+    this.sharedService.insertImgList(data);
+    this.imgList = [];
   }
 }
