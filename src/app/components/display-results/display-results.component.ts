@@ -9,12 +9,11 @@ import { ToolBarComponent } from '../tool-bar/tool-bar.component';
   styleUrls: ['./display-results.component.css']
 })
 export class DisplayResultsComponent implements OnInit {
-  //@Input() imgList = ToolBarComponent;
   imgList: Array<string> = [];
 
-  constructor(private shared: SharedService) {}
+  constructor(private sharedService: SharedService) {}
 
   ngOnInit() {
-    this.shared.currentImageResults.subscribe(imgList => this.imgList = imgList);
+    this.imgList = this.sharedService.dataArray;
   }
 }

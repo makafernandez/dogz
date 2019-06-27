@@ -1,4 +1,5 @@
 <mat-accordion>
+  <!-- Checkbox Raza -->
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -8,26 +9,32 @@
         Has seleccionado 5 filtros
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <!-- Checkbox Raza -->
-    <div class="tools--breedsCheck">
+
+    <div *ngIf="!loading" class="tools--breedsCheck">
       <div class="tools--checkboxCol">
-        <ng-container *ngFor='let breed of breedsList; let i=index;'>
+        <ng-container *ngFor='let breed of breeds; let i=index;'>
           <ng-container *ngIf="i <= 29">
-            <mat-checkbox (click)="onClick(event)">{{breed.name | titlecase}}</mat-checkbox>
+            <mat-checkbox (change)="onChange($event, breed)" [name]="breed">
+              {{breed | async | titlecase}}
+            </mat-checkbox>
           </ng-container>
         </ng-container>
       </div>
       <div class="tools--checkboxCol">
-        <ng-container *ngFor='let breed of breedsList; let i=index;'>
+        <ng-container *ngFor='let breed of breeds; let i=index;'>
           <ng-container *ngIf="i >= 30 && i <= 59">
-            <mat-checkbox (click)="onClick(event)">{{breed.name | titlecase}}</mat-checkbox>
+            <mat-checkbox (change)="onChange($event, breed)" [name]="breed">
+              {{breed | async |titlecase}}
+            </mat-checkbox>
           </ng-container>
         </ng-container>
       </div>
       <div class="tools--checkboxCol">
-        <ng-container *ngFor='let breed of breedsList; let i=index;'>
+        <ng-container *ngFor='let breed of breeds; let i=index;'>
           <ng-container *ngIf="i >= 60 && i <= 99">
-            <mat-checkbox (click)="onClick(event)">{{breed.name | titlecase}}</mat-checkbox>
+            <mat-checkbox (change)="onChange($event, breed)" [name]="breed">
+              {{breed | async | titlecase}}
+            </mat-checkbox>
           </ng-container>
         </ng-container>
       </div>
@@ -43,12 +50,12 @@
         Has seleccionado 2 filtros
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <!-- Checkbox Raza -->
-    <div class="tools--breedsCheck">
+
+    <div *ngIf='showHTML' class="tools--breedsCheck">
       <div class="tools--checkboxCol">
-          <mat-checkbox>Afghan</mat-checkbox>
-          <mat-checkbox>Basset</mat-checkbox>
-          <mat-checkbox>Beagle</mat-checkbox>
+        <mat-checkbox>Afghan</mat-checkbox>
+        <mat-checkbox>Basset</mat-checkbox>
+        <mat-checkbox>Beagle</mat-checkbox>
         <!--<ng-container *ngIf='no hay elemntos disponibles'>
 
           </ng-container>-->

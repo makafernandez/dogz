@@ -1,154 +1,67 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { map, tap } from 'rxjs/operators';
+import { SharedService } from 'src/app/services/sharedService/shared.service';
+import { DogsService } from 'src/app/services/dogsService/dogs.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tools',
   templateUrl: './tools.component.html',
   styleUrls: ['./tools.component.css']
 })
+
 export class ToolsComponent implements OnInit {
   @Output() eventClicked = new EventEmitter<Event>();
-
   panelOpenState = false;
-  breeds = {};
-  breedsList = [];
+  breeds = [];
   subBreedsList = [];
   imgList = [];
+  loading = false;
 
-  constructor() {
-    this.breeds = {
-      affenpinscher: [],
-      african: [],
-      airedale: [],
-      akita: [],
-      appenzeller: [],
-      basenji: [],
-      beagle: [],
-      bluetick: [],
-      borzoi: [],
-      bouvier: [],
-      boxer: [],
-      brabancon: [],
-      briard: [],
-      bulldog: ['boston', 'english', 'french'],
-      bullterrier: ['staffordshire'],
-      cairn: [],
-      cattledog: ['australian'],
-      chihuahua: [],
-      chow: [],
-      clumber: [],
-      cockapoo: [],
-      collie: ['border'],
-      coonhound: [],
-      corgi: ['cardigan'],
-      cotondetulear: [],
-      dachshund: [],
-      dalmatian: [],
-      dane: ['great'],
-      deerhound: ['scottish'],
-      dhole: [],
-      dingo: [],
-      doberman: [],
-      elkhound: ['norwegian'],
-      entlebucher: [],
-      eskimo: [],
-      frise: ['bichon'],
-      germanshepherd: [],
-      greyhound: ['italian'],
-      groenendael: [],
-      hound: ['afghan', 'basset', 'blood', 'english', 'ibizan', 'walker'],
-      husky: [],
-      keeshond: [],
-      kelpie: [],
-      komondor: [],
-      kuvasz: [],
-      labrador: [],
-      leonberg: [],
-      lhasa: [],
-      malamute: [],
-      malinois: [],
-      maltese: [],
-      mastiff: ['bull', 'english', 'tibetan'],
-      mexicanhairless: [],
-      mix: [],
-      mountain: ['bernese', 'swiss'],
-      newfoundland: [],
-      otterhound: [],
-      papillon: [],
-      pekinese: [],
-      pembroke: [],
-      pinscher: ['miniature'],
-      pointer: ['german', 'germanlonghair'],
-      pomeranian: [],
-      poodle: ['miniature', 'standard', 'toy'],
-      pug: [],
-      puggle: [],
-      pyrenees: [],
-      redbone: [],
-      retriever: ['chesapeake', 'curly', 'flatcoated', 'golden'],
-      ridgeback: ['rhodesian'],
-      rottweiler: [],
-      saluki: [],
-      samoyed: [],
-      schipperke: [],
-      schnauzer: ['giant', 'miniature'],
-      setter: ['english', 'gordon', 'irish'],
-      sheepdog: ['english', 'shetland'],
-      shiba: [],
-      shihtzu: [],
-      spaniel: [
-        'blenheim',
-        'brittany',
-        'cocker',
-        'irish',
-        'japanese',
-        'sussex',
-        'welsh'
-      ],
-      springer: ['english'],
-      stbernard: [],
-      terrier: [
-        'american',
-        'australian',
-        'bedlington',
-        'border',
-        'dandie',
-        'fox',
-        'irish',
-        'kerryblue',
-        'lakeland',
-        'norfolk',
-        'norwich',
-        'patterdale',
-        'russell',
-        'scottish',
-        'sealyham',
-        'silky',
-        'tibetan',
-        'toy',
-        'westhighland',
-        'wheaten',
-        'yorkshire'
-      ],
-      vizsla: [],
-      weimaraner: [],
-      whippet: [],
-      wolfhound: ['irish']
-    };
-  }
+  constructor(private sharedService: SharedService, private dogsService: DogsService) { }
 
   ngOnInit() {
-    this.mapBreed(this.breeds);
-    console.log(this.breedsList);
+    this.loadBreedList();
   }
 
-  mapBreed(data) {
-    this.breedsList = Object.keys(data).map(breed => {
-      // console.log(breed);
-      return { name: breed };
+  loadBreedList() {
+    this.loading = true;
+    this.dogsService.getBreedsList().pipe(tap(() => this.loading = true))
+      .subscribe({
+        next(response) {
+          this.breeds = Object.keys(response.message);
+          this.loading = false;
+          console.log(this.breeds);
+        },
+        error(err) {
+          console.error('Error: ' + err);
+        }
+      }).tap(() => this.loading = false);
+  }
+
+  searchByBreed(breed: string, num: number) {
+    this.loading = true;
+    this.dogsService.searchBreed(breed, num).subscribe({
+      next(response) {
+        this.imgList = response.message;
+        this.loading = false;
+      },
+      error(err) {
+        console.error('Error: ' + err);
+      },
+      complete() {
+        console.log('Completed');
+      }
     });
   }
 
-  onClick(event: Event): void {
+  onChange(event: Event): void {
     this.eventClicked.emit(event);
+    this.searchByBreed(event.source.name, 10);
+  }
+
+  addData() {
+    this.sharedService.insertData(this.data);
+    this.data = '';
   }
 }

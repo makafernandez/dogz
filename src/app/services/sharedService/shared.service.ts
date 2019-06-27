@@ -1,16 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
+
 export class SharedService {
-  private imgList = new BehaviorSubject();
-  currentImageResults = this.imgList.asObservable();
+  dataArray: string[] = [];
 
-  constructor() {}
-
-  getImageList(imgSrcList: Array<string>) {
-    this.imgList.next(imgSrcList);
+  insertData(data: string) {
+    this.dataArray.unshift(data);
   }
 }

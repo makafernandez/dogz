@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { SharedService } from './services/sharedService/shared.service';
+import { DogsService } from './services/dogsService/dogs.service';
+
 // Angular/Material Components
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -50,7 +53,7 @@ import { ResultsItemComponent } from './components/results-item/results-item.com
     MatInputModule,
     MatCardModule
   ],
-  providers: [],
+  providers: [SharedService, DogsService],
   bootstrap: [AppComponent],
   exports: []
 })

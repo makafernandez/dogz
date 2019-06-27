@@ -12,7 +12,7 @@ export class DogsService {
   // bySubBreed = '/breed/hound/list';
   randomImgs = '/breeds/image/random/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getBreedsList(): Observable<any> {
     return this.http.get(`${this.url}${this.allBreeds}`).pipe(take(1));
