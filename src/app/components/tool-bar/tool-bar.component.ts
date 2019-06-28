@@ -27,9 +27,4 @@ export class ToolBarComponent implements OnInit {
   }
 
   ngOnInit() {}
-
-  childEventClicked(event: Event) {
-    this.clickedEvent = event;
-    console.log('Hice click en tool-bar!', this.clickedEvent);
-  }
 }

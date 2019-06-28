@@ -1,7 +1,13 @@
 <div class="display-results container">
-   <div class="card-columns">
-      <ng-container *ngFor="let img of imgList">
-         <app-results-item *ngFor="let itemImg of img" [img]="itemImg" [breed]="breed"></app-results-item>
+  <div class="card-columns">
+    <ng-container *ngFor="let img of imgList">
+      <ng-container *ngFor="let itemImgs of img">
+        <app-results-item
+          *ngFor="let itemImg of itemImgs.url"
+          [img]="itemImg"
+          [breed]="img.name"
+        ></app-results-item>
       </ng-container>
-   </div>
+    </ng-container>
+  </div>
 </div>

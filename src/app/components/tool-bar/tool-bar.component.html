@@ -1,7 +1,7 @@
 <div class="toolbar">
   <mat-sidenav-container>
-    <mat-sidenav #sidenav class="container" mode="push" [(opened)]="opened" (backdropClick)="close()"
-      (keydown.escape)="close()" [fixedInViewport]="options.value.fixed">
+    <mat-sidenav #sidenav class="container" mode="push" [(opened)]="opened" (backdropClick)="sidenav.toggle()"
+      (keydown.escape)="sidenav.toggle()" [fixedInViewport]="options.value.fixed">
       <!-- Tool Bar Header -->
       <div class="toolbar--header">
         <p>Filtros</p>
@@ -10,7 +10,7 @@
         </button>
       </div>
       <!-- Options -->
-      <app-tools (eventClicked)="childEventClicked($event)"></app-tools>
+      <app-tools></app-tools>
     </mat-sidenav>
 
     <mat-sidenav-content>

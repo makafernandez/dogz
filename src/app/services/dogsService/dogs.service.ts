@@ -17,36 +17,43 @@ export class DogsService {
   allBreeds = '/breeds/list/all';
   allSubBreed = '/breed/hound/list';
 
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getBreedsList(): Observable<any> {
-    return this.http
-      .get(`${this.url}${this.allBreeds}`)
-      .pipe(take(1));
+    return this.http.get(`${this.url}${this.allBreeds}`).pipe(take(1));
   }
 
   getSubBreedsList(breed: string): Observable<any> {
-    return this.http
-      .get(`${this.url}/breed/${breed}/list`)
-      .pipe(take(1), map(sub => {
-        debugger;
-        return {
-          name: breed,
-          subBreed: sub || []
-        };
-      }));
+    return this.http.get(`${this.url}/breed/${breed}/list`).pipe(take(1));
   }
 
   getBreedImg(breed: string, num = 10): Observable<any> {
     return this.http
       .get(`${this.url}/breed/${breed}/images/random/${num}`)
-      .pipe(take(1));
+      .pipe(
+        take(1),
+        map(img => {
+          const { message } = img;
+          return {
+            name: breed,
+            url: message
+          };
+        })
+      );
   }
 
   getSubBreedImg(breed: string, subBreed: string, num = 10): Observable<any> {
     return this.http
       .get(`${this.url}/breed/${breed}/${subBreed}/images/random/${num}`)
-      .pipe(take(1));
+      .pipe(
+        take(1),
+        map(img => {
+          const { message } = img;
+          return {
+            name: breed,
+            url: message
+          };
+        })
+      );
   }
 }
