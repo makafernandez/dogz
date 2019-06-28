@@ -9,27 +9,8 @@ import { DogsService } from 'src/app/services/dogsService/dogs.service';
 export class WelcomeComponent implements OnInit {
   results = [];
 
-  constructor(private dogsService: DogsService) {}
+  constructor(private dogsService: DogsService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  getRandomPics() {
-    this.dogsService
-      .getRandomImgs(10)
-      /*.subscribe(data => {
-        this.imgList = data;
-      });*/
-      .subscribe({
-        next(response) {
-          console.log(response.message);
-          this.results = response.message;
-        },
-        error(err) {
-          console.error('Error: ' + err);
-        },
-        complete() {
-          console.log('Completed');
-        }
-      });
-  }
 }

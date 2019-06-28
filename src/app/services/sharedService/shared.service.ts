@@ -8,6 +8,5 @@ export class SharedService {
 
   setImageList(images) {
     this.images.next(images);
-    console.log(this.imageList);
   }
 }

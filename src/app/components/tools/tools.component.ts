@@ -13,25 +13,19 @@ export class ToolsComponent implements OnInit {
   @Output() eventClicked = new EventEmitter<Event>();
   panelOpenState = false;
   breeds: any[] = [];
-  subBreedsList = [];
+  subBreeds = [];
   imgList: string[] = [];
   loading = false;
 
   constructor(
     private sharedService: SharedService,
     private dogsService: DogsService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loadBreedList();
   }
 
-  /**
-   *
-   *
-   * @date 2019-06-27
-   * @memberof ToolsComponent
-   */
   loadBreedList() {
     this.dogsService
       .getBreedsList()
@@ -46,42 +40,57 @@ export class ToolsComponent implements OnInit {
       });
   }
 
-  /**
-   *
-   * @date 2019-06-27
-   * @param {string} breed
-   * @param {number} num
-   * @memberof ToolsComponent
-   */
+  loadSubBreedList(breed) {
+    this.dogsService
+      .getSubBreedsList(breed)
+      .pipe(
+        tap(() => {
+          this.loading = true;
+        })
+      )
+      .subscribe(response => {
+        debugger;
+        this.subBreeds = response || [];
+        this.loading = false;
+        console.log(this.subBreeds);
+      });
+  }
+
   searchByBreed(breed: string, num: number) {
     this.loading = true;
-    this.dogsService.searchBreed(breed, num).subscribe(response => {
+    this.dogsService.getBreedImg(breed, num).subscribe(response => {
       this.imgList = response.message;
       this.loading = false;
       this.addSharedImgList(this.imgList);
     });
   }
 
-  /**
-   * @description Captura los click 
-   * @author makafernandez
-   * @date 2019-06-27
-   * @param {*} event
-   * @param {*} breed
-   * @memberof ToolsComponent
-   */
-  onChange(event: any, breed: any) {
+  searchBySubBreed(breed: string, subBreed: string, num: number) {
+    this.loading = true;
+    this.dogsService.getSubBreedImg(breed, subBreed, num).subscribe(response => {
+      this.imgList = response.message;
+      this.loading = false;
+      this.addSharedImgList(this.imgList);
+    });
+  }
+
+  onChange(event: any, breed: string, subBreed: string) {
     this.eventClicked.emit(event);
     if (event.checked) {
-      this.searchByBreed(breed, 10);
+      if (subBreed) {
+        this.searchBySubBreed(breed, subBreed, 10);
+        debugger;
+      } else {
+        this.searchByBreed(breed, 10);
+        this.loadSubBreedList(breed);
+      }
     } else {
-      console.log('deselecciona');
       for (breed in this.imgList) {
-        
+
       }
       let index = this.imgList.indexOf(breed);
       console.log(index);
-      
+
     }
   }
 

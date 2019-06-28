@@ -24,3 +24,7 @@ mat-sidenav {
 	font-size: 1.2rem;
 	margin-top: 0;
 }
+
+.toolbar--filterBtn {
+	background-color: #f17c7e;
+}

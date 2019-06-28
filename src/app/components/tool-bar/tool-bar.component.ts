@@ -26,11 +26,7 @@ export class ToolBarComponent implements OnInit {
     });
   }
 
-  ngOnInit() { }
-
-  close() {
-    this.sidenav.close();
-  }
+  ngOnInit() {}
 
   childEventClicked(event: Event) {
     this.clickedEvent = event;

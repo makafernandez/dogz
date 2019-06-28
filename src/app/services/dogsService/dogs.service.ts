@@ -15,22 +15,38 @@ import { take, map } from 'rxjs/operators';
 export class DogsService {
   url = 'https://dog.ceo/api';
   allBreeds = '/breeds/list/all';
-  // bySubBreed = '/breed/hound/list';
-  randomImgs = '/breeds/image/random/';
+  allSubBreed = '/breed/hound/list';
 
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient) { }
 
   getBreedsList(): Observable<any> {
-    return this.http.get(`${this.url}${this.allBreeds}`).pipe(take(1));
+    return this.http
+      .get(`${this.url}${this.allBreeds}`)
+      .pipe(take(1));
   }
 
-  getRandomImgs(num = 10): Observable<any> {
-    return this.http.get(`${this.url}${this.randomImgs}${num}`).pipe(take(1));
+  getSubBreedsList(breed: string): Observable<any> {
+    return this.http
+      .get(`${this.url}/breed/${breed}/list`)
+      .pipe(take(1), map(sub => {
+        debugger;
+        return {
+          name: breed,
+          subBreed: sub || []
+        };
+      }));
   }
 
-  searchBreed(breed, num = 10): Observable<any> {
+  getBreedImg(breed: string, num = 10): Observable<any> {
     return this.http
       .get(`${this.url}/breed/${breed}/images/random/${num}`)
+      .pipe(take(1));
+  }
+
+  getSubBreedImg(breed: string, subBreed: string, num = 10): Observable<any> {
+    return this.http
+      .get(`${this.url}/breed/${breed}/${subBreed}/images/random/${num}`)
       .pipe(take(1));
   }
 }

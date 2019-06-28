@@ -14,11 +14,7 @@
       <div class="tools--checkboxCol">
         <ng-container *ngFor="let breed of breeds; let i = index">
           <ng-container *ngIf="i <= 29">
-            <mat-checkbox
-              (change)="onChange($event, breed)"
-              [name]="breed"
-              value="{{ breed }}"
-            >
+            <mat-checkbox (change)="onChange($event, breed)" [name]="breed" value="{{ breed }}">
               {{ breed | titlecase }}
             </mat-checkbox>
           </ng-container>
@@ -27,11 +23,7 @@
       <div class="tools--checkboxCol">
         <ng-container *ngFor="let breed of breeds; let i = index">
           <ng-container *ngIf="i >= 30 && i <= 59">
-            <mat-checkbox
-              (change)="onChange($event, breed)"
-              [name]="breed"
-              value="{{ breed }}"
-            >
+            <mat-checkbox (change)="onChange($event, breed)" [name]="breed" value="{{ breed }}">
               {{ breed | titlecase }}
             </mat-checkbox>
           </ng-container>
@@ -40,11 +32,7 @@
       <div class="tools--checkboxCol">
         <ng-container *ngFor="let breed of breeds; let i = index">
           <ng-container *ngIf="i >= 60 && i <= 99">
-            <mat-checkbox
-              (change)="onChange($event, breed)"
-              [name]="breed"
-              value="{{ breed }}"
-            >
+            <mat-checkbox (change)="onChange($event, breed)" [name]="breed" value="{{ breed }}">
               {{ breed | titlecase }}
             </mat-checkbox>
           </ng-container>
@@ -53,10 +41,7 @@
     </div>
   </mat-expansion-panel>
   <!-- Checkbox Sub-Raza -->
-  <mat-expansion-panel
-    (opened)="panelOpenState = true"
-    (closed)="panelOpenState = false"
-  >
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Sub-Raza
@@ -66,33 +51,29 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <div *ngIf="!loading" class="tools--breedsCheck">
+    <div class="tools--breedsCheck">
       <div class="tools--checkboxCol">
-        <mat-checkbox>Afghan</mat-checkbox>
-        <mat-checkbox>Basset</mat-checkbox>
-        <mat-checkbox>Beagle</mat-checkbox>
-        <!--<ng-container *ngIf='no hay elemntos disponibles'>
-
-          </ng-container>-->
-        <!--<ng-container *ngFor='let sub of subBreedsList; let i=index;'>
-            <ng-container *ngIf="i <= 29">
-              <mat-checkbox>{{sub.name | titlecase}}</mat-checkbox>
-            </ng-container>
+        <ng-container *ngFor='let sub of subBreeds; let i=index;'>
+          <div>{{sub.name}}</div>
+          <ng-container *ngIf="i <= 29">
+            <mat-checkbox (change)="onChange($event, sub.name, sub.subBreed)" [name]="sub.subBreed" value="{{ sub.subBreed }}">{{sub.subBreed | titlecase}}
+            </mat-checkbox>
           </ng-container>
-        </div>
-        <div class="tools--checkboxCol">
-          <ng-container *ngFor='let sub of subBreedsList; let i=index;'>
-            <ng-container *ngIf="i >= 30 && i <= 59">
-              <mat-checkbox>{{sub.name | titlecase}}</mat-checkbox>
-            </ng-container>
+        </ng-container>
+      </div>
+      <div class="tools--checkboxCol">
+        <ng-container *ngFor='let sub of subBreeds; let i=index;'>
+          <ng-container *ngIf="i >= 30 && i <= 59">
+            <mat-checkbox>{{sub | titlecase}}</mat-checkbox>
           </ng-container>
-        </div>
-        <div class="tools--checkboxCol">
-          <ng-container *ngFor='let sub of subBreedsList; let i=index;'>
-            <ng-container *ngIf="i >= 60 && i <= 99">
-              <mat-checkbox>{{sub.name | titlecase}}</mat-checkbox>
-            </ng-container>
-          </ng-container>-->
+        </ng-container>
+      </div>
+      <div class="tools--checkboxCol">
+        <ng-container *ngFor='let sub of subBreeds; let i=index;'>
+          <ng-container *ngIf="i >= 60 && i <= 99">
+            <mat-checkbox>{{sub | titlecase}}</mat-checkbox>
+          </ng-container>
+        </ng-container>
       </div>
     </div>
   </mat-expansion-panel>

@@ -10,14 +10,13 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./display-results.component.css']
 })
 export class DisplayResultsComponent implements OnInit {
-  imgList: Array<string> = [];
+  imgList: any[] = [];
 
   constructor(private sharedService: SharedService) {}
 
   ngOnInit() {
     this.sharedService.imageList
       .subscribe((response: any) => {
-        console.log(response);
         this.imgList.push(response);
       });
   }

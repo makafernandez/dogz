@@ -1,14 +1,7 @@
 <div class="toolbar">
   <mat-sidenav-container>
-    <mat-sidenav
-      #sidenav
-      class="container"
-      mode="push"
-      [(opened)]="opened"
-      (backdropClick)="close()"
-      (keydown.escape)="close()"
-      [fixedInViewport]="options.value.fixed"
-    >
+    <mat-sidenav #sidenav class="container" mode="push" [(opened)]="opened" (backdropClick)="close()"
+      (keydown.escape)="close()" [fixedInViewport]="options.value.fixed">
       <!-- Tool Bar Header -->
       <div class="toolbar--header">
         <p>Filtros</p>
@@ -21,8 +14,9 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-      <button mat-raised-button color="accent" (click)="sidenav.toggle()">
-          filter-list
+      <div (click)="sidenav.toggle()"></div>
+      <button class="toolbar--filterBtn" mat-raised-button (click)="sidenav.toggle()">
+        <mat-icon>filter_list</mat-icon>
       </button>
     </mat-sidenav-content>
   </mat-sidenav-container>
