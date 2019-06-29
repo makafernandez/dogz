@@ -17,7 +17,7 @@ export class DogsService {
   allBreeds = '/breeds/list/all';
   allSubBreed = '/breed/hound/list';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getBreedsList(): Observable<any> {
     return this.http.get(`${this.url}${this.allBreeds}`).pipe(take(1));
@@ -33,7 +33,7 @@ export class DogsService {
       .pipe(
         take(1),
         map(img => {
-          const { message } = img;
+          const { message } = img as any;
           return {
             name: breed,
             url: message
@@ -48,7 +48,7 @@ export class DogsService {
       .pipe(
         take(1),
         map(img => {
-          const { message } = img;
+          const { message } = img as any;
           return {
             name: breed,
             url: message
