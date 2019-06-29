@@ -1,7 +1,7 @@
 .toolbar {
-	position: absolute;
-	top: 0;
-	height: 100vh;
+  position: absolute;
+  top: 0;
+  height: 100vh;
 }
 
 mat-sidenav {
@@ -9,22 +9,28 @@ mat-sidenav {
 }
 
 .container {
-	padding: 20px;
+  padding: 20px;
 }
 
 .toolbar--header {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: baseline;
-	color: #8a8a8a;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  color: #8a8a8a;
 }
 
 .toolbar--header p {
-	font-size: 1.2rem;
-	margin-top: 0;
+  font-size: 1.2rem;
+  margin-top: 0;
 }
 
 .toolbar--filterBtn {
-	background-color: #f17c7e;
+  background-color: #f17c7e;
+}
+
+@media only screen and (max-width: 560px) {
+  mat-sidenav {
+    width: 90vw;
+  }
 }
