@@ -1,6 +1,13 @@
 .container {
-	padding-right: 3rem;
-	padding-left: 3rem;
-	margin-right: auto;
-	margin-left: auto;
+  padding-right: 3rem;
+  padding-left: 3rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media only screen and (max-width: 560px) {
+  .container {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
 }
