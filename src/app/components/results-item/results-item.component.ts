@@ -9,6 +9,7 @@ import { DisplayResultsComponent } from '../display-results/display-results.comp
 export class ResultsItemComponent implements OnInit {
   @Input() img: DisplayResultsComponent;
   @Input() breed: DisplayResultsComponent;
+  @Input() subBreed: DisplayResultsComponent;
 
   constructor() {}
 

@@ -19,6 +19,7 @@ export class ToolsComponent implements OnInit {
   breeds = [];
   subBreeds = [];
   imgList = [];
+  subImgList = [];
   filteredList = [];
   loading = false;
   /**
@@ -72,10 +73,10 @@ export class ToolsComponent implements OnInit {
         })
       )
       .subscribe(response => {
-        this.subBreeds = response.message.map(sub => {
-          return { name: sub, checked: true };
+        let obj = response.message.map(sub => {
+          return { name: sub, breed, checked: false };
         });
-
+        this.subBreeds.push(obj);
         this.loading = false;
       });
   }
@@ -99,21 +100,27 @@ export class ToolsComponent implements OnInit {
       }
     } else if (!event.checked) {
       if (subBreed) {
-        this.uncheck(subBreed);
+        this.uncheck(subBreed, 'subBreed');
       } else {
-        this.uncheck(breed);
+        this.uncheck(breed, 'breed');
       }
     }
   }
   /**
    * Filters the results when a checkbox is unchecked.
    *
-   * @param {string} name
+   * @param {string} breedName
+   * @param {string} type
    * @memberof ToolsComponent
    */
-  uncheck(breedName: string) {
-    this.filteredList = this.imgList.filter(breed => breed.name !== breedName);
-    this.imgList = this.filteredList;
+  uncheck(breedName: string, type: string) {
+    if (type === 'breed') {
+      this.filteredList = this.imgList.filter(breed => breed.name !== breedName);
+      this.imgList = this.filteredList;
+    } else if (type === 'subBreed') {
+      this.filteredList = this.subImgList.filter(breed => breed.name !== breedName);
+      this.subImgList = this.filteredList;
+    }
     this.addSharedImgList(this.filteredList);
   }
 
@@ -127,6 +134,7 @@ export class ToolsComponent implements OnInit {
   searchByBreed(breed, num) {
     this.loading = true;
     this.dogsService.getBreedImg(breed, num).subscribe(response => {
+      this.subImgList = [];
       this.imgList.push(response);
       this.loading = false;
       this.addSharedImgList(this.imgList);
@@ -146,9 +154,9 @@ export class ToolsComponent implements OnInit {
       .getSubBreedImg(breed, subBreed, num)
       .subscribe(response => {
         this.imgList = [];
-        this.imgList.push(response);
+        this.subImgList.push(response);
         this.loading = false;
-        this.addSharedImgList(this.imgList);
+        this.addSharedImgList(this.subImgList);
       });
   }
   /**

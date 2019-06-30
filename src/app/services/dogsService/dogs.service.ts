@@ -83,7 +83,8 @@ export class DogsService {
         map(img => {
           const { message } = img as any;
           return {
-            name: breed,
+            name: subBreed,
+            breed,
             url: message
           };
         })

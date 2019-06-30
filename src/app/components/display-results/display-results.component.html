@@ -5,7 +5,8 @@
         <app-results-item
           *ngFor="let itemImg of itemImgs.url"
           [img]="itemImg"
-          [breed]="img.name"
+          [breed]="itemImgs.breed ? itemImgs.breed : ''"
+          [subBreed]="itemImgs.name"
         ></app-results-item>
       </ng-container>
     </ng-container>
