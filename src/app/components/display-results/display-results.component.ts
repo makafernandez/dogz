@@ -1,8 +1,5 @@
-import { Component, OnInit, Optional, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/services/sharedService/shared.service';
-import { WelcomeComponent } from '../welcome/welcome.component';
-import { ToolBarComponent } from '../tool-bar/tool-bar.component';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-display-results',
@@ -17,7 +14,10 @@ export class DisplayResultsComponent implements OnInit {
   ngOnInit() {
     this.sharedService.imageList
       .subscribe((response: any) => {
-        this.imgList.push(response);
+        let list = [];
+        list.push(response);
+        this.imgList = list;
+        list = [];
       });
   }
 }

@@ -2,7 +2,12 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DogsService } from 'src/app/services/dogsService/dogs.service';
 import { tap } from 'rxjs/operators';
 import { SharedService } from 'src/app/services/sharedService/shared.service';
-
+/**
+ * Implements checkboxes functionality.
+ *
+ * @class ToolsComponent
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'app-tools',
   templateUrl: './tools.component.html',
@@ -11,20 +16,31 @@ import { SharedService } from 'src/app/services/sharedService/shared.service';
 export class ToolsComponent implements OnInit {
   @Output() eventClicked = new EventEmitter<Event>();
   panelOpenState = false;
-  breeds: any[] = [];
+  breeds = [];
   subBreeds = [];
   imgList = [];
+  filteredList = [];
   loading = false;
-
+  /**
+   * Creates an instance of ToolsComponent.
+   * @param {SharedService} sharedService
+   * @param {DogsService} dogsService
+   * @memberof ToolsComponent
+   */
   constructor(
     private sharedService: SharedService,
     private dogsService: DogsService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loadBreedList();
   }
-
+  /**
+   * Subscribes to Dogs Service, and returns a list with all the breeds.
+   * Adds a 'checked' property to each breed to be used by the checkboxes.
+   *
+   * @memberof ToolsComponent
+   */
   loadBreedList() {
     this.dogsService
       .getBreedsList()
@@ -41,7 +57,12 @@ export class ToolsComponent implements OnInit {
         this.loading = false;
       });
   }
-
+  /**
+   * Subscribes to Dogs Service, and returns a list
+   *
+   * @param {*} breed
+   * @memberof ToolsComponent
+   */
   loadSubBreedList(breed) {
     this.dogsService
       .getSubBreedsList(breed)
@@ -58,7 +79,16 @@ export class ToolsComponent implements OnInit {
         this.loading = false;
       });
   }
-
+  /**
+   * Listens to change events in checkboxes, if a checkbox is checked
+   * calls the search methods. If a checkbox is unchecked, it will call
+   * the uncheck method.
+   *
+   * @param {*} event
+   * @param {string} breed
+   * @param {string} subBreed
+   * @memberof ToolsComponent
+   */
   onChange(event: any, breed: string, subBreed: string) {
     if (event.checked) {
       if (subBreed) {
@@ -67,15 +97,33 @@ export class ToolsComponent implements OnInit {
         this.searchByBreed(breed, 10);
         this.loadSubBreedList(breed);
       }
-    } else {
-      for (let i = 0; i < this.imgList.length; i++) {
-        if (this.imgList[i].name === breed) {
-          this.imgList.splice(i, 1);
-        }
+    } else if (!event.checked) {
+      if (subBreed) {
+        this.uncheck(subBreed);
+      } else {
+        this.uncheck(breed);
       }
     }
   }
+  /**
+   * Filters the results when a checkbox is unchecked.
+   *
+   * @param {string} name
+   * @memberof ToolsComponent
+   */
+  uncheck(breedName: string) {
+    this.filteredList = this.imgList.filter(breed => breed.name !== breedName);
+    this.imgList = this.filteredList;
+    this.addSharedImgList(this.filteredList);
+  }
 
+  /**
+   * Subscribes to Dogs Service and returns a list of images urls of a particular breed.
+   *
+   * @param {*} breed
+   * @param {*} num
+   * @memberof ToolsComponent
+   */
   searchByBreed(breed, num) {
     this.loading = true;
     this.dogsService.getBreedImg(breed, num).subscribe(response => {
@@ -84,19 +132,32 @@ export class ToolsComponent implements OnInit {
       this.addSharedImgList(this.imgList);
     });
   }
-
+  /**
+   * Subscribes to Dogs Service and returns a list of images urls of a particular sub-breed.
+   *
+   * @param {string} breed
+   * @param {string} subBreed
+   * @param {number} num
+   * @memberof ToolsComponent
+   */
   searchBySubBreed(breed: string, subBreed: string, num: number) {
     this.loading = true;
     this.dogsService
       .getSubBreedImg(breed, subBreed, num)
       .subscribe(response => {
+        this.imgList = [];
         this.imgList.push(response);
         this.loading = false;
         this.addSharedImgList(this.imgList);
       });
   }
-
-  addSharedImgList(data) {
+  /**
+   * Stores data in the Shared Service, to become available for other components.
+   *
+   * @param {*} data
+   * @memberof ToolsComponent
+   */
+  addSharedImgList(data: any) {
     this.sharedService.setImageList(data);
   }
 }
