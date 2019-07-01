@@ -1,5 +1,5 @@
-<div class="display-results container">
-  <div class="card-columns">
+<div class="display-results">
+  <div class="grid-container">
     <ng-container *ngFor="let img of imgList">
       <ng-container *ngFor="let itemImgs of img">
         <app-results-item
@@ -7,7 +7,9 @@
           [img]="itemImg"
           [breed]="itemImgs.breed ? itemImgs.breed : ''"
           [subBreed]="itemImgs.name"
-        ></app-results-item>
+          class="grid-item"
+        >
+        </app-results-item>
       </ng-container>
     </ng-container>
   </div>

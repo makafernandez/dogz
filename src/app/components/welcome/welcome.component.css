@@ -3,8 +3,8 @@
 	flex-direction: column;
 	justify-content: center;
 	background-image: url('./../../../assets/background.jpg');
-	background-size: fill;
-	background-repeat: repeat;	
+	background-size: contain;
+	background-repeat: repeat;
 	height: 25rem;
 	text-align: center;
 }
@@ -28,9 +28,3 @@
 	background-color: #FEA5A7 !important;
 	color: #fff !important;
 }
-
-/*@media only screen and (max-width: 560px) {
-	.welcomeBar {
-		background-image: url('./background_search_mobile.jpg');
-	}
-}*/

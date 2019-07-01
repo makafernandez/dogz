@@ -9,9 +9,13 @@ import { SharedService } from 'src/app/services/sharedService/shared.service';
 export class DisplayResultsComponent implements OnInit {
   imgList: any[] = [];
 
-  constructor(private sharedService: SharedService) {}
+  constructor(private sharedService: SharedService) { }
 
   ngOnInit() {
+    this.getResults();
+  }
+
+  getResults() {
     this.sharedService.imageList
       .subscribe((response: any) => {
         let list = [];
@@ -21,4 +25,3 @@ export class DisplayResultsComponent implements OnInit {
       });
   }
 }
-

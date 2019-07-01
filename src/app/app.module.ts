@@ -19,6 +19,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 // Components
 import { WelcomeComponent } from './components/welcome/welcome.component';
@@ -51,7 +52,8 @@ import { ResultsItemComponent } from './components/results-item/results-item.com
     MatExpansionModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule
   ],
   providers: [SharedService, DogsService],
   bootstrap: [AppComponent],
