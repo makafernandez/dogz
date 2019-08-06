@@ -11,6 +11,7 @@ import { take, map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
+
 export class DogsService {
   url = 'https://dog.ceo/api';
   allBreeds = '/breeds/list/all';
