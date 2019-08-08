@@ -7,7 +7,7 @@ import { SharedService } from 'src/app/services/sharedService/shared.service';
   styleUrls: ['./display-results.component.css']
 })
 export class DisplayResultsComponent implements OnInit {
-  imgList: any[] = [];
+  private imgList: any[] = [];
 
   constructor(private sharedService: SharedService) { }
 

@@ -1,6 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { WelcomeComponent } from './components/welcome/welcome.component';
+import { WelcomeComponent } from './presentation/components/welcome/welcome.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 

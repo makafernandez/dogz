@@ -1,59 +1,28 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
+import { PresentationModule } from './presentation/presentation.module';
 import { SharedService } from './services/sharedService/shared.service';
 import { DogsService } from './services/dogsService/dogs.service';
-
-// Angular/Material Components
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
-import {MatGridListModule} from '@angular/material/grid-list';
-
-// Components
-import { WelcomeComponent } from './components/welcome/welcome.component';
-import { ToolBarComponent } from './components/tool-bar/tool-bar.component';
-import { ToolsComponent } from './components/tools/tools.component';
-import { DisplayResultsComponent } from './components/display-results/display-results.component';
-import { ResultsItemComponent } from './components/results-item/results-item.component';
-
 
 @NgModule({
   declarations: [
-    AppComponent,
-    WelcomeComponent,
-    ToolBarComponent,
-    ToolsComponent,
-    DisplayResultsComponent,
-    ResultsItemComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatCheckboxModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    MatGridListModule
+    PresentationModule,
+    AppRoutingModule,
+    MatToolbarModule
   ],
   providers: [SharedService, DogsService],
   bootstrap: [AppComponent],
