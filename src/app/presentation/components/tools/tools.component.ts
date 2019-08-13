@@ -2,14 +2,13 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DogBreedsModel } from 'src/app/core/domain/dog-breeds-model';
 import { DogBreedsUseCase } from '../../../core/usecases/dog-breeds-usecase/dog-breeds-use-case';
 import { DogsService } from 'src/app/services/dogsService/dogs.service';
+import { DogSubBreedsModel } from 'src/app/core/domain/dog-sub-breeds-model';
+import { DogSubBreedsUseCase } from 'src/app/core/usecases/dog-sub-breeds-usecase/dog-sub-breeds-use-case';
 import { SharedService } from 'src/app/services/sharedService/shared.service';
 import { tap } from 'rxjs/operators';
 
 /**
  * Implements checkboxes functionality.
- *
- * @class ToolsComponent
- * @implements {OnInit}
  */
 @Component({
 	selector: 'app-tools',
@@ -29,14 +28,12 @@ export class ToolsComponent implements OnInit {
 
 	/**
 	 * Creates an instance of ToolsComponent.
-	 * @param sharedService
-	 * @param dogsService
-	 * @param dogBreedsList
 	 */
 	constructor(
 		private sharedService: SharedService,
 		private dogsService: DogsService,
-		private dogBreedsList: DogBreedsUseCase
+		private dogBreedsList: DogBreedsUseCase,
+		private dogSubBreedsList: DogSubBreedsUseCase
 	) { }
 
 	ngOnInit() {
@@ -44,10 +41,11 @@ export class ToolsComponent implements OnInit {
 	}
 
 	/**
-	 * Subscribes to DogBreedsUseCase, and returns a list with all the breeds.
+	 * Subscribes to DogBreedsUsecase, and returns a list with all the breeds.
 	 */
 	loadBreedList() {
-		this.dogBreedsList.execute(null)
+		this.dogBreedsList
+			.execute(null)
 			.pipe(
 				tap(() => {
 					this.loading = true;
@@ -60,37 +58,29 @@ export class ToolsComponent implements OnInit {
 	}
 
 	/**
-	 * Subscribes to Dogs Service, and returns a list
-	 *
-	 * @param {*} breed
-	 * @memberof ToolsComponent
+	 * Subscribes to DogSubBreedsUsecase, and returns a list with all the sub-breeds of a given breed
 	 */
 	loadSubBreedList(breed: string) {
-		this.dogsService
-			// this.dogBreedsList
-			.getSubBreedsList(breed)
+		this.dogSubBreedsList
+			.execute(breed)
 			.pipe(
 				tap(() => {
 					this.loading = true;
 				})
 			)
-			.subscribe(response => {
-				let obj = response.message.map(sub => {
-					return { name: sub, breed, checked: false };
-				});
+			.subscribe((response: DogSubBreedsModel[]) => {
+				const obj = response;
 				this.subBreeds.push(obj);
 				this.loading = false;
 			});
 	}
+
+	// FILTER USE CASE
 	/**
 	 * Listens to change events in checkboxes, if a checkbox is checked
 	 * calls the search methods. If a checkbox is unchecked, it will call
 	 * the uncheck method.
 	 *
-	 * @param {*} event
-	 * @param {string} breed
-	 * @param {string} subBreed
-	 * @memberof ToolsComponent
 	 */
 	onChange(event: any, breed: string, subBreed: string) {
 		if (event.checked) {
@@ -111,9 +101,6 @@ export class ToolsComponent implements OnInit {
 	/**
 	 * Filters the results when a checkbox is unchecked.
 	 *
-	 * @param {string} breedName
-	 * @param {string} type
-	 * @memberof ToolsComponent
 	 */
 	uncheck(breedName: string, type: string) {
 		if (type === 'breed') {
@@ -126,12 +113,10 @@ export class ToolsComponent implements OnInit {
 		this.addSharedImgList(this.filteredList);
 	}
 
+	// DISPLAY RESULTS USE CASE
 	/**
 	 * Subscribes to Dogs Service and returns a list of images urls of a particular breed.
 	 *
-	 * @param {*} breed
-	 * @param {*} num
-	 * @memberof ToolsComponent
 	 */
 	searchByBreed(breed, num) {
 		this.loading = true;
@@ -145,10 +130,6 @@ export class ToolsComponent implements OnInit {
 	/**
 	 * Subscribes to Dogs Service and returns a list of images urls of a particular sub-breed.
 	 *
-	 * @param {string} breed
-	 * @param {string} subBreed
-	 * @param {number} num
-	 * @memberof ToolsComponent
 	 */
 	searchBySubBreed(breed: string, subBreed: string, num: number) {
 		this.loading = true;
@@ -164,8 +145,6 @@ export class ToolsComponent implements OnInit {
 	/**
 	 * Stores data in the Shared Service, to become available for other components.
 	 *
-	 * @param {*} data
-	 * @memberof ToolsComponent
 	 */
 	addSharedImgList(data: any) {
 		this.sharedService.setImageList(data);
