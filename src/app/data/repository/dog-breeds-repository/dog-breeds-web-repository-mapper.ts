@@ -9,10 +9,4 @@ export class DogBreedsWebRepositoryMapper extends Mapper <DogBreedsWebEntity, Do
 			checked: false
 		};
 	}
-
-	mapTo(param: DogBreedsModel): DogBreedsWebEntity {
-		return {
-			message: param.name
-		};
-	}
 }

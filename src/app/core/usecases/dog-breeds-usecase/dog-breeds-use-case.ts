@@ -1,8 +1,8 @@
-import { DogBreedsModel } from '../domain/dog-breeds-model';
-import { DogBreedsRepository } from './../repositories/dog-breeds.repository';
+import { DogBreedsModel } from '../../domain/dog-breeds-model';
+import { DogBreedsRepository } from '../../repositories/dog-breeds.repository';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UseCase } from './../base/use-case';
+import { UseCase } from '../../base/use-case';
 
 @Injectable({
 	providedIn: 'root'

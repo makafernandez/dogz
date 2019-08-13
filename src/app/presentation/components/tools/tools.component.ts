@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DogBreedsModel } from 'src/app/core/domain/dog-breeds-model';
-import { DogBreedsUseCase } from './../../../core/usecases/dog-breeds-use-case';
+import { DogBreedsUseCase } from '../../../core/usecases/dog-breeds-usecase/dog-breeds-use-case';
 import { DogsService } from 'src/app/services/dogsService/dogs.service';
 import { SharedService } from 'src/app/services/sharedService/shared.service';
 import { tap } from 'rxjs/operators';
@@ -42,7 +42,7 @@ export class ToolsComponent implements OnInit {
 	ngOnInit() {
 		this.loadBreedList();
 	}
-	
+
 	/**
 	 * Subscribes to DogBreedsUseCase, and returns a list with all the breeds.
 	 */

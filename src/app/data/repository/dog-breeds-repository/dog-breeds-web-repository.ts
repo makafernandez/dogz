@@ -31,6 +31,5 @@ export class DogBreedsWebRepository extends DogBreedsRepository {
 		return this.http
 			.get<DogBreedsWebEntity[]>(`${this.url}/breed/${breed}/list`)
 			.pipe(take(1));
-		// .pipe(map(this.mapper.mapFrom));
 	}
 }
