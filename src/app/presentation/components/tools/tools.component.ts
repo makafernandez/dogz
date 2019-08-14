@@ -1,9 +1,11 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { DogBreedsModel } from 'src/app/core/domain/dog-breeds-model';
+import { DogBreedsModel } from 'src/app/core/domain/dog-breeds.model';
 import { DogBreedsUseCase } from '../../../core/usecases/dog-breeds-usecase/dog-breeds-use-case';
 import { DogsService } from 'src/app/services/dogsService/dogs.service';
-import { DogSubBreedsModel } from 'src/app/core/domain/dog-sub-breeds-model';
+import { DogSubBreedsModel } from 'src/app/core/domain/dog-sub-breeds.model';
 import { DogSubBreedsUseCase } from 'src/app/core/usecases/dog-sub-breeds-usecase/dog-sub-breeds-use-case';
+import { SearchByBreedModel } from 'src/app/core/domain/search-by-breed.model';
+import { SearchByBreedUseCase } from 'src/app/core/usecases/search-by-breed-usecase/search-by-breed-usecase';
 import { SharedService } from 'src/app/services/sharedService/shared.service';
 import { tap } from 'rxjs/operators';
 
@@ -25,6 +27,10 @@ export class ToolsComponent implements OnInit {
 	subImgList = [];
 	filteredList = [];
 	loading = false;
+	selected = {
+		breed: [],
+		subBreed: []
+	};
 
 	/**
 	 * Creates an instance of ToolsComponent.
@@ -33,7 +39,8 @@ export class ToolsComponent implements OnInit {
 		private sharedService: SharedService,
 		private dogsService: DogsService,
 		private dogBreedsList: DogBreedsUseCase,
-		private dogSubBreedsList: DogSubBreedsUseCase
+		private dogSubBreedsList: DogSubBreedsUseCase,
+		private searchByBreed: SearchByBreedUseCase
 	) { }
 
 	ngOnInit() {
@@ -85,9 +92,11 @@ export class ToolsComponent implements OnInit {
 	onChange(event: any, breed: string, subBreed: string) {
 		if (event.checked) {
 			if (subBreed) {
-				this.searchBySubBreed(breed, subBreed, 10);
+				this.selected.subBreed.push(subBreed);
+				this.searchImagesBySubBreed(breed, subBreed, 10);
 			} else {
-				this.searchByBreed(breed, 10);
+				this.selected.breed.push(breed);
+				this.searchImagesByBreed(breed, 10);
 				this.loadSubBreedList(breed);
 			}
 		} else if (!event.checked) {
@@ -113,25 +122,31 @@ export class ToolsComponent implements OnInit {
 		this.addSharedImgList(this.filteredList);
 	}
 
-	// DISPLAY RESULTS USE CASE
+	// SEARCH BY BREED USE CASE
 	/**
 	 * Subscribes to Dogs Service and returns a list of images urls of a particular breed.
 	 *
 	 */
-	searchByBreed(breed, num) {
-		this.loading = true;
-		this.dogsService.getBreedImg(breed, num).subscribe(response => {
-			this.subImgList = [];
-			this.imgList.push(response);
-			this.loading = false;
-			this.addSharedImgList(this.imgList);
-		});
+	searchImagesByBreed(breed: string, num?: number) {
+		this.searchByBreed
+			.execute({ breed, num })
+			.pipe(
+				tap(() => {
+					this.loading = true;
+				})
+			)
+			.subscribe((response: SearchByBreedModel[]) => {
+				this.subImgList = [];
+				this.imgList.push(response);
+				this.loading = false;
+				this.addSharedImgList(this.imgList);
+			});
 	}
 	/**
 	 * Subscribes to Dogs Service and returns a list of images urls of a particular sub-breed.
 	 *
 	 */
-	searchBySubBreed(breed: string, subBreed: string, num: number) {
+	searchImagesBySubBreed(breed: string, subBreed: string, num: number) {
 		this.loading = true;
 		this.dogsService
 			.getSubBreedImg(breed, subBreed, num)

@@ -3,10 +3,10 @@
     <ng-container *ngFor="let img of imgList">
       <ng-container *ngFor="let itemImgs of img">
         <app-results-item
-          *ngFor="let itemImg of itemImgs.url"
-          [img]="itemImg"
-          [breed]="itemImgs.breed ? itemImgs.breed : ''"
-          [subBreed]="itemImgs.name"
+          *ngFor="let itemImg of itemImgs"
+          [img]="itemImg.url"
+          [breed]="itemImg.breed || ''"
+          [subBreed]="itemImg.name"
           class="grid-item"
         >
         </app-results-item>
