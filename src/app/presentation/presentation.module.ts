@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { DataModule } from './../data/data.module';
 import { DisplayResultsComponent } from './components/display-results/display-results.component';
-import { DogsService } from '../services/dogsService/dogs.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -42,6 +41,6 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 		MatCardModule,
 		MatGridListModule,
 	],
-	providers: [SharedService, DogsService],
+	providers: [SharedService],
 })
 export class PresentationModule { }

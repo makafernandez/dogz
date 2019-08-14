@@ -1,6 +1,5 @@
 .display-results {
-  padding-right: 3rem;
-  padding-left: 3rem;
+  padding: 2rem 4rem;
   margin-right: auto;
   margin-left: auto;
 }
@@ -8,8 +7,8 @@
 .grid-container {
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
-  grid-gap: 0.8rem;
-  justify-content: space-around;
+  grid-gap: 1rem;
+  justify-content: space-evenly;
 }
 
 .grid-item {
@@ -18,8 +17,7 @@
 
 @media only screen and (max-width: 560px) {
   .display-results {
-    padding-right: 20px;
-    padding-left: 20px;
+    padding: 20px;
     font-size: 0.5rem;
   }
 

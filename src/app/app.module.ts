@@ -8,7 +8,6 @@ import { IDogBreedsRepository } from './core/repositories/idog-breeds.repository
 import { ISearchDogImagesRepository } from './core/repositories/isearch-dog-images.repository' ;
 import { DogBreedsWebRepository } from './data/repository/dog-breeds-repository/dog-breeds-web-repository';
 import { SearchDogImagesRepository } from './data/repository/search-dog-images-repository/search-dog-images.repository';
-import { DogsService } from './services/dogsService/dogs.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgModule } from '@angular/core';
@@ -33,7 +32,6 @@ import { SharedService } from './services/sharedService/shared.service';
 	],
 	providers: [
 		SharedService,
-		DogsService,
 		{ provide: IDogBreedsRepository, useClass: DogBreedsWebRepository },
 		{ provide: ISearchDogImagesRepository, useClass: SearchDogImagesRepository }],
 	bootstrap: [AppComponent],
