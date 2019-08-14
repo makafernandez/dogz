@@ -1,9 +1,9 @@
-import { DogBreedsModel } from '../../../core/domain/dog-breeds-model';
-import { DogBreedsRepository } from '../../../core/repositories/dog-breeds.repository';
+import { DogBreedsModel } from '../../../core/domain/dog-breeds.model';
+import { IDogBreedsRepository } from '../../../core/repositories/idog-breeds.repository';
 import { DogBreedsWebEntity } from './dog-breeds-web-entity';
 import { DogBreedsWebRepositoryMapper } from './dog-breeds-web-repository-mapper';
 import { DogSubBreedsWebRepositoryMapper } from './dog-sub-breeds-web-repository-mapper';
-import { DogSubBreedsModel } from 'src/app/core/domain/dog-sub-breeds-model';
+import { DogSubBreedsModel } from 'src/app/core/domain/dog-sub-breeds.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, take } from 'rxjs/operators';
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 	providedIn: 'root'
 })
 
-export class DogBreedsWebRepository extends DogBreedsRepository {
+export class DogBreedsWebRepository extends IDogBreedsRepository {
 	private url = 'https://dog.ceo/api';
 	private allBreeds = '/breeds/list/all';
 

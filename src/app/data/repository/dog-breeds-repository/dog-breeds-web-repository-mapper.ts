@@ -1,4 +1,4 @@
-import { DogBreedsModel } from '../../../core/domain/dog-breeds-model';
+import { DogBreedsModel } from '../../../core/domain/dog-breeds.model';
 import { DogBreedsWebEntity } from './dog-breeds-web-entity';
 import { Mapper } from '../../../core/base/mapper';
 
