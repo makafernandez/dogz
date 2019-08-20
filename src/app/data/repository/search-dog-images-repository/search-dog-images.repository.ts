@@ -1,3 +1,4 @@
+import { GetUrl } from '../get-url';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ISearchDogImagesRepository } from 'src/app/core/repositories/isearch-dog-images.repository';
@@ -14,7 +15,6 @@ import { SearchBySubBreedModel } from 'src/app/core/domain/search-by-sub-breed.m
 })
 
 export class SearchDogImagesRepository extends ISearchDogImagesRepository {
-	private url = 'https://dog.ceo/api';
 
 	searchByBreedMapper = new SearchByBreedMapper();
 	searchBySubBreedMapper = new SearchBySubBreedMapper();
@@ -25,14 +25,20 @@ export class SearchDogImagesRepository extends ISearchDogImagesRepository {
 
 	getBreedImg(breed: string, num = 10): Observable<SearchByBreedModel[]> {
 		return this.http
-			.get<SearchByBreedEntity>(`${this.url}/breed/${breed}/images/random/${num}`)
+			.get<SearchByBreedEntity>(GetUrl.generateBreedImagesUrl(breed, num))
 			.pipe(take(1),
-				map(response => Object.values(response.message).map(url => this.searchByBreedMapper.mapFrom({ breed, url }))));
+				map(response => {
+					return Object.values(response.message)
+					.map(url => {
+							return this.searchByBreedMapper.mapFrom({ breed, url });
+					});
+				})
+			);
 	}
 
 	getSubBreedImg(breed: string, subBreed: string, num = 10): Observable<SearchBySubBreedModel[]> {
 		return this.http
-			.get<SearchByBreedEntity>(`${this.url}/breed/${breed}/${subBreed}/images/random/${num}`)
+			.get<SearchByBreedEntity>(GetUrl.generateSubBreedImagesUrl(breed, subBreed, num))
 			.pipe(take(1),
 				map(response => Object.values(response.message).map(url => this.searchBySubBreedMapper.mapFrom({ subBreed, breed, url }))));
 	}
